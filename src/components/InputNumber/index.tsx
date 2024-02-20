@@ -1,33 +1,48 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { InputNumberContainer } from "./styles";
 import { Minus, Plus } from "phosphor-react";
 
-export function InputNumber() {
-    const [qtd, setQtd] = useState(1)
+interface InputNumberProps {
+    min?: number;
+    max?: number;
+    value: number;
+    onChange: (value: number) => void;
+}
+
+export function InputNumber({ value, onChange, min = 1, max = 99 }: InputNumberProps) {
+    const [qtd, setQtd] = useState(value)
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.valueAsNumber
+        const valueInput = event.target.valueAsNumber
         
-        if (value >= 0 && value < 100) {
-            setQtd(value)
+        if (valueInput >= (min - 1) && valueInput < (max + 1)) {
+            setQtd(valueInput)           
         }
     }
 
+    const handleChangeByClick = (type: 'plus' | 'minus') => {
+        setQtd(prev => {
+            return type === 'plus' ? prev + 1 : prev - 1
+        })
+    }
+
+    useEffect(() => onChange(qtd), [qtd, onChange])
+
     return (
         <InputNumberContainer>
-            <button type="button" onClick={() => setQtd(qtd - 1)} disabled={qtd <= 1}>
+            <button type="button" onClick={() => handleChangeByClick('minus')} disabled={qtd <= min}>
                 <Minus weight="bold" />
             </button>
 
             <input 
                 type="number" 
-                min={1} 
-                max={99}
+                min={min} 
+                max={max}
                 value={qtd} 
                 onChange={handleChange} 
             />
 
-            <button type="button" onClick={() => setQtd(qtd + 1)} disabled={qtd >= 99}>
+            <button type="button" onClick={() => handleChangeByClick('plus')} disabled={qtd >= max}>
                 <Plus weight="bold" />
             </button>
         </InputNumberContainer>
