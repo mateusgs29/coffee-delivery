@@ -8,7 +8,8 @@ export function Header() {
             <img src={logoCoffee} alt="" />
             <ActionsNav>
                 <ButtonAddress>
-                    <MapPin size={20} weight='fill' /> Porto Alegre, RS
+                    <MapPin size={20} weight='fill' /> 
+                    <span>Porto Alegre, RS</span>
                 </ButtonAddress>
                 <ButtonCart>
                     <ShoppingCart size={20} weight='fill' />

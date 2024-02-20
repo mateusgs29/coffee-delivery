@@ -14,7 +14,7 @@ export const ActionsNav = styled.nav`
     gap: .75rem;
 `
 
-export const ButtonAddress = styled.span`
+export const ButtonAddress = styled.button`
     background-color: ${props => props.theme["purple-light"]};
     color: ${props => props.theme["purple-dark"]};
     display: flex;
@@ -24,9 +24,17 @@ export const ButtonAddress = styled.span`
     border-radius: 6px;
     gap: 5px;
     font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
 
     > svg {
         color: ${props => props.theme.purple};
+    }
+
+    @media (max-width: 350px) {
+        span {
+            display: none;
+        }
     }
 `
 
@@ -38,6 +46,7 @@ export const ButtonCart = styled.button`
     border-radius: 6px;
     padding: 0.5rem;
     line-height: 0;
+    cursor: pointer;
 
     > span {
         position: absolute;
@@ -53,5 +62,9 @@ export const ButtonCart = styled.button`
         height: 1.25rem;
         background-color: ${props => props.theme["yellow-dark"] };
         color: ${props => props.theme.white};
+    }
+
+    @media (max-width: 1200px) {
+        margin-right: 5px;
     }
 `
