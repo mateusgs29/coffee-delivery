@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const HeaderContainer = styled.header`
     display: flex;
@@ -14,7 +15,7 @@ export const ActionsNav = styled.nav`
     gap: .75rem;
 `
 
-export const ButtonAddress = styled.button`
+export const ButtonAddress = styled(NavLink)`
     background-color: ${props => props.theme["purple-light"]};
     color: ${props => props.theme["purple-dark"]};
     display: flex;
@@ -26,6 +27,7 @@ export const ButtonAddress = styled.button`
     font-size: 0.875rem;
     border: none;
     cursor: pointer;
+    text-decoration: none;
 
     > svg {
         color: ${props => props.theme.purple};
@@ -38,7 +40,7 @@ export const ButtonAddress = styled.button`
     }
 `
 
-export const ButtonCart = styled.button`
+export const ButtonCart = styled(NavLink)`
     position: relative;
     background: ${props => props.theme["yellow-light"]};
     color: ${props => props.theme["yellow-dark"]};
