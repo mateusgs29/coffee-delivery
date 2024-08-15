@@ -93,4 +93,9 @@ export const ButtonCartCoffee = styled.button`
     &:hover {
         background-color: ${props => props.theme.purple};
     }
+
+    &:disabled {
+        background-color: ${props => props.theme.purple};
+        cursor: auto;
+    }
 `

@@ -1,4 +1,4 @@
-import { ShoppingCart } from "phosphor-react";
+import { ShoppingCart, Check } from "phosphor-react";
 import { InputNumber } from "../../../../components/InputNumber";
 import { ButtonCartCoffee, CardCoffeeContainer, FooterCard, PriceCoffee, TagsCoffee } from "./styles";
 import { useContext, useState } from "react";
@@ -17,10 +17,17 @@ interface CardCoffeeProps {
 
 export function CardCoffee({ item }: CardCoffeeProps) {
     const [qtd, setQtd] = useState(1)
+    const [added, setAdded] = useState(false)
 
     const { addNewCoffeeCart } = useContext(CoffeesContext)
 
     const addToCart = () => {
+        setAdded(true)
+
+        setTimeout(() => {
+            setAdded(false)
+        }, 1000)
+
         addNewCoffeeCart(item, qtd)
     }
 
@@ -41,7 +48,13 @@ export function CardCoffee({ item }: CardCoffeeProps) {
                 <PriceCoffee>{item.price.toFixed(2).replace('.', ',')}</PriceCoffee>
                 <div>
                     <InputNumber value={qtd} onChange={setQtd} max={20} />
-                    <ButtonCartCoffee onClick={addToCart}><ShoppingCart weight="fill" /></ButtonCartCoffee>
+                    <ButtonCartCoffee onClick={addToCart} disabled={added}>
+                        { added ?
+                            <Check weight="bold" />
+                            :
+                            <ShoppingCart weight="fill" />
+                        }
+                    </ButtonCartCoffee>
                 </div>
             </FooterCard>
         </CardCoffeeContainer>
