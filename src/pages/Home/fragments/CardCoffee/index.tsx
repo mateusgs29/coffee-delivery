@@ -23,12 +23,11 @@ export function CardCoffee({ item }: CardCoffeeProps) {
 
     const addToCart = () => {
         setAdded(true)
-
+        addNewCoffeeCart(item, qtd)
+        
         setTimeout(() => {
             setAdded(false)
-        }, 1000)
-
-        addNewCoffeeCart(item, qtd)
+        }, 1000)     
     }
 
     return (

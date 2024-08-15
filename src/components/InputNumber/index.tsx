@@ -17,17 +17,15 @@ export function InputNumber({ value, onChange, min = 1, max = 99 }: InputNumberP
         
         if (valueInput >= (min - 1) && valueInput < (max + 1)) {
             setQtd(valueInput)           
-        }
-
-        if (onChange) {
             onChange(valueInput)
         }
     }
 
     const handleChangeByClick = (type: 'plus' | 'minus') => {
-        setQtd(prev => {
-            return type === 'plus' ? prev + 1 : prev - 1
-        })
+        const newQtd = type === 'plus' ? qtd + 1 : qtd - 1
+
+        setQtd(newQtd)
+        onChange(newQtd)
     }
 
     return (
