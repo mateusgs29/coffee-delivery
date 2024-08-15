@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 interface IHeaderCard {
-    colorIcon: 'yellow' | 'purple';
+    coloricon: 'yellow' | 'purple';
 } 
 
 interface IInputText {
-    gridArea: string;
+    gridarea: string;
 }
 
 export const CardContainer = styled.div`
@@ -26,10 +26,10 @@ export const HeaderCard = styled.div<IHeaderCard>`
     
     svg {
         color: ${props => {
-            if (props.colorIcon === "yellow")
+            if (props.coloricon === "yellow")
                 return props.theme["yellow-dark"]
 
-            if (props.colorIcon === "purple")
+            if (props.coloricon === "purple")
                 return props.theme.purple
         }}
     }
@@ -51,7 +51,7 @@ export const InfoCard = styled.div`
     }
 `
 
-export const FormAddress = styled.form`
+export const FormAddress = styled.div`
     display: grid;
     grid-template: 
         "cep null null"
@@ -85,7 +85,7 @@ export const FormAddress = styled.form`
 `
 
 export const InputText = styled.input<IInputText>`
-    grid-area: ${props => props.gridArea};
+    grid-area: ${props => props.gridarea};
     padding: 1rem;
     border: 1px solid ${props => props.theme["base-button"]};
     border-radius: 4px;
@@ -119,7 +119,7 @@ export const InputOptional = styled.div`
     }
 `
 
-export const FormPayment = styled.form`
+export const FormPayment = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;

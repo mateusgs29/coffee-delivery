@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface IconListProps {
-    colorIcon: string;
+    coloricon: string;
 }
 
 export const Container = styled.div`
@@ -105,7 +105,7 @@ export const IconList = styled.div<IconListProps>`
     align-items: center;
     justify-content: center;
 
-    background-color: ${props => props.theme[props.colorIcon]};
+    background-color: ${props => props.theme[props.coloricon]};
 `
 
 export const TextsList = styled.div`
