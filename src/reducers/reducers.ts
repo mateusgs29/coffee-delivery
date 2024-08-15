@@ -8,8 +8,20 @@ export interface ICoffeeCart {
     amount: number
 }
 
+export interface IAddress {
+    cep: string
+    rua: string
+    numero: string
+    complemento: string
+    bairro: string
+    cidade: string
+    uf: string
+}
+
 interface CoffeesState {
     coffeesCart: ICoffeeCart[],
+    address: IAddress,
+    payment: string
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,6 +50,40 @@ export function coffeesReducer(state: CoffeesState, action: any) {
                 coffeesCart: updatedCoffeesCart
             }
         }
+
+        case ActionTypes.UPDATE_AMOUNT_COFFEE: {
+            const updatedCoffeesCart = state.coffeesCart.map(item => 
+                item.id === action.payload.idCoffee
+                    ? { ...item, amount: action.payload.amount }
+                    : item
+            )
+
+            return {
+                ...state,
+                coffeesCart: updatedCoffeesCart
+            }
+        }
+
+        case ActionTypes.REMOVE_COFFEE: {
+            const updatedCoffeesCart = state.coffeesCart.filter(item => 
+                item.id !== action.payload.idCoffee
+            )
+
+            return {
+                ...state,
+                coffeesCart: updatedCoffeesCart
+            }
+        }
+
+        case ActionTypes.FINISH_ORDER: {     
+            return {
+                ...state,
+                coffeesCart: [],
+                address: action.payload.address,
+                payment: action.payload.payment
+            }
+        }
+
         default:
             return state
     }
