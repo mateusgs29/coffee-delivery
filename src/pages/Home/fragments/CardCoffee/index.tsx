@@ -1,12 +1,14 @@
 import { ShoppingCart } from "phosphor-react";
 import { InputNumber } from "../../../../components/InputNumber";
 import { ButtonCartCoffee, CardCoffeeContainer, FooterCard, PriceCoffee, TagsCoffee } from "./styles";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CoffeesContext } from "../../../../context/CoffeesContext";
 
 interface CardCoffeeProps {
     item: {
-        urlImage: string;
+        id: number;
         name: string;
+        urlImage: string;
         tags: string[];
         description: string;
         price: number;
@@ -16,8 +18,10 @@ interface CardCoffeeProps {
 export function CardCoffee({ item }: CardCoffeeProps) {
     const [qtd, setQtd] = useState(1)
 
+    const { addNewCoffeeCart } = useContext(CoffeesContext)
+
     const addToCart = () => {
-        console.log("QUANTIDADE", qtd)
+        addNewCoffeeCart(item, qtd)
     }
 
     return (
