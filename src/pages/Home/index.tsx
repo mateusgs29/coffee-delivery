@@ -1,9 +1,13 @@
-import { Banner } from "./components/Banner";
-import { CardCoffee } from "./components/CardCoffee";
-import { data } from "./data";
+import { useContext } from "react";
+
+import { Banner } from "./fragments/Banner";
+import { CardCoffee } from "./fragments/CardCoffee";
 import { CoffeesContainer, Title } from "./styles";
+import { CoffeesContext } from "../../context/CoffeesContext";
 
 export function Home() {
+    const { coffeesData } = useContext(CoffeesContext)
+    
     return (
         <div>
             <Banner />
@@ -11,7 +15,7 @@ export function Home() {
             <Title>Nossos cafés</Title>
 
             <CoffeesContainer>
-                {data.map(item => (
+                {coffeesData.map(item => (
                     <CardCoffee key={item.id} item={item} />
                 ))}
             </CoffeesContainer>
