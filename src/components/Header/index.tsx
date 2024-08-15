@@ -16,7 +16,7 @@ export function Header() {
             <ActionsNav>
                 <ButtonAddress to='/pedido' title='Endereço'>
                     <MapPin size={20} weight='fill' /> 
-                    { address && <span>{ address.cidade}, { address.uf }</span> }
+                    { address.cidade !== "" && <span>{ address.cidade}, { address.uf }</span> }
                 </ButtonAddress>
                 <ButtonCart to='/pedido' title='Carrinho'>
                     <ShoppingCart size={20} weight='fill' />
