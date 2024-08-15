@@ -2,44 +2,79 @@ import { Trash } from "phosphor-react";
 import { InputNumber } from "../../../../components/InputNumber";
 import { Title } from "../../styles";
 
-import imgTest from "../../../../assets/coffees/americano.png"
-import { ButtonConfirm, ButtonDelete, DetailsCoffee, ItemCoffee, OrderContainer, Total, TotalItems } from "./styles";
-import { useNavigate } from "react-router-dom";
+import { 
+    ButtonConfirm, 
+    ButtonDelete, 
+    DetailsCoffee, 
+    ItemCoffee, 
+    NoCoffeeSelected, 
+    OrderContainer, 
+    Total, 
+    TotalItems 
+} from "./styles";
+import { useContext, useEffect, useState } from "react";
+import { CoffeesContext } from "../../../../context/CoffeesContext";
+import { useFormContext } from "react-hook-form";
 
 export function DetailsOrder() {
-    const navigate = useNavigate();
+    const [totalPriceItems, setTotalPriceItems] = useState("0");
+    const { coffeesCart, updateAmountCoffeeCart, removeCoffeeCart } = useContext(CoffeesContext);
+    
+    const { formState: { isValid } } = useFormContext();
 
-    const confirmOrder = () => {
-        navigate("/pedido-confirmado");
+    const formatPrice = (price: number, amount: number) => {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(price * amount)
     }
+
+    useEffect(() => {
+        const total = coffeesCart?.reduce((sum, item) => sum + (item.price * item.amount), 0)
+        
+        const totalFormatted = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(total)
+        
+        setTotalPriceItems(totalFormatted)
+    }, [coffeesCart])
 
     return (
         <div>
             <Title>Cafés selecionados</Title>
 
             <OrderContainer>
-                <ItemCoffee>
-                    <img src={imgTest} alt="" />
+                { coffeesCart?.length === 0 ? (
+                    <NoCoffeeSelected>Nenhum café selecionado</NoCoffeeSelected>
+                ) : coffeesCart?.map(item => (
+                    <ItemCoffee>
+                        <img src={item.urlImage} alt="" />
 
-                    <DetailsCoffee>
-                        <div>
-                            <span>Nome do café</span>
-                            <span>R$ 9,90</span>
-                        </div>
+                        <DetailsCoffee>
+                            <div>
+                                <span>{ item.name }</span>
+                                <span>{ formatPrice(item.price, item.amount) }</span>
+                            </div>
 
-                        <div>
-                            <InputNumber value={1} onChange={() => console.log("")} />
-                            <ButtonDelete>
-                                <Trash size={16} />
-                                Remover
-                            </ButtonDelete>
-                        </div>
-                    </DetailsCoffee>
-                </ItemCoffee>
+                            <div>
+                                <InputNumber 
+                                    value={item.amount} 
+                                    onChange={(qtd) => updateAmountCoffeeCart(item.id, qtd)} 
+                                    max={20}
+                                />
+                                <ButtonDelete type="button" onClick={() => removeCoffeeCart(item.id)}>
+                                    <Trash size={16} />
+                                    Remover
+                                </ButtonDelete>
+                            </div>
+                        </DetailsCoffee>
+                    </ItemCoffee>
+                ))}
 
                 <TotalItems>
                     <span>Total de itens</span>
-                    <span>R$ 29,70</span>
+                    <span>{ totalPriceItems }</span>
                 </TotalItems>
 
                 <TotalItems>
@@ -49,10 +84,21 @@ export function DetailsOrder() {
 
                 <Total>
                     <span>Total</span>
-                    <span>R$ 33,20</span>
+                    <span>
+                        { new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            }).format(Number(totalPriceItems.replace("R$", "").replace(",", ".")) + 3.5)
+                        }
+                    </span>
                 </Total>
 
-                <ButtonConfirm onClick={confirmOrder}>Confirmar pedido</ButtonConfirm>
+                <ButtonConfirm 
+                    disabled={coffeesCart?.length === 0 || !isValid}
+                    type="submit"
+                >
+                    Confirmar pedido
+                </ButtonConfirm>
             </OrderContainer>
         </div>
     )
