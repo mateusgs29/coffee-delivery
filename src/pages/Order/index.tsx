@@ -1,5 +1,5 @@
-import { AddressForm } from "./components/AddressForm";
-import { DetailsOrder } from "./components/DetailsOrder";
+import { AddressForm } from "./fragments/AddressForm";
+import { DetailsOrder } from "./fragments/DetailsOrder";
 import { OrderContainer } from "./styles";
 
 export function Order() {
