@@ -86,6 +86,11 @@ export const ButtonConfirm = styled.button`
     &:hover {
         background-color: ${props => props.theme["yellow-dark"]};
     }
+
+    &:disabled {
+        background-color: ${props => props.theme["yellow-light"]};
+        cursor: auto;
+    }
 `
 
 export const TotalItems = styled.div`
@@ -108,4 +113,13 @@ export const Total = styled.div`
     margin-bottom: 1.5rem;
     font-weight: bold;
     font-size: 1.25rem;
+`
+
+export const NoCoffeeSelected = styled.span`
+    color: ${props => props.theme["base-text"]};
+    font-size: 1rem;
+    display: block;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid ${props => props.theme["base-button"]};
 `
