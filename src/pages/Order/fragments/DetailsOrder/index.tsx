@@ -48,7 +48,7 @@ export function DetailsOrder() {
                 { coffeesCart?.length === 0 ? (
                     <NoCoffeeSelected>Nenhum café selecionado</NoCoffeeSelected>
                 ) : coffeesCart?.map(item => (
-                    <ItemCoffee>
+                    <ItemCoffee key={item.id}>
                         <img src={item.urlImage} alt="" />
 
                         <DetailsCoffee>
