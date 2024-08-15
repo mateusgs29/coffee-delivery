@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { CoffeesContext } from '../../context/CoffeesContext'
 
 export function Header() {
-    const { totalAmountCoffeeCart } = useContext(CoffeesContext)
+    const { totalAmountCoffeeCart, address } = useContext(CoffeesContext)
 
     return (
         <HeaderContainer>
@@ -16,7 +16,7 @@ export function Header() {
             <ActionsNav>
                 <ButtonAddress to='/pedido' title='Endereço'>
                     <MapPin size={20} weight='fill' /> 
-                    <span>Porto Alegre, RS</span>
+                    { address && <span>{ address.cidade}, { address.uf }</span> }
                 </ButtonAddress>
                 <ButtonCart to='/pedido' title='Carrinho'>
                     <ShoppingCart size={20} weight='fill' />
