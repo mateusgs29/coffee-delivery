@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { InputNumberContainer } from "./styles";
 import { Minus, Plus } from "phosphor-react";
 
@@ -18,6 +18,10 @@ export function InputNumber({ value, onChange, min = 1, max = 99 }: InputNumberP
         if (valueInput >= (min - 1) && valueInput < (max + 1)) {
             setQtd(valueInput)           
         }
+
+        if (onChange) {
+            onChange(valueInput)
+        }
     }
 
     const handleChangeByClick = (type: 'plus' | 'minus') => {
@@ -25,8 +29,6 @@ export function InputNumber({ value, onChange, min = 1, max = 99 }: InputNumberP
             return type === 'plus' ? prev + 1 : prev - 1
         })
     }
-
-    useEffect(() => onChange(qtd), [qtd, onChange])
 
     return (
         <InputNumberContainer>
